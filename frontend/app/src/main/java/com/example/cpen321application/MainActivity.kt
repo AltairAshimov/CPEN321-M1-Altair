@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.cpen321application.ui.navigation.AppDestinations
 import com.example.cpen321application.ui.screens.HomeScreen
 import com.example.cpen321application.ui.screens.LoginServerScreen
+import com.example.cpen321application.ui.screens.PixelGridScreen
 import com.example.cpen321application.ui.screens.PlaceholderScreen
 import com.example.cpen321application.ui.theme.CPEN321ApplicationTheme
 
@@ -47,10 +48,7 @@ fun AppNavHost(
         }
 
         composable(AppDestinations.LIVE_UPDATES) {
-            PlaceholderScreen(
-                title = "Live Updates",
-                navController = navController,
-            )
+            PixelGridScreen(navController)
         }
 
         composable(AppDestinations.TIMER) {

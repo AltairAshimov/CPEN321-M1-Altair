@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cpen321application.BuildConfig
 import com.example.cpen321application.auth.signInWithGoogle
+import com.example.cpen321application.ui.navigation.AppDestinations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -60,6 +61,10 @@ fun LoginServerScreen(navController: NavController) {
     var googleUserName by remember { mutableStateOf<String?>(null) }
 
     suspend fun loadData() {
+        if (navController.currentBackStackEntry?.destination?.route != AppDestinations.LOGIN_SERVER) {
+            return
+        }
+
         isLoading = true
         errorMessage = null
 
@@ -110,7 +115,11 @@ fun LoginServerScreen(navController: NavController) {
         }
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(navController.currentBackStackEntry?.destination?.route) {
+        if (navController.currentBackStackEntry?.destination?.route != AppDestinations.LOGIN_SERVER) {
+            return@LaunchedEffect
+        }
+
         loadData()
     }
 

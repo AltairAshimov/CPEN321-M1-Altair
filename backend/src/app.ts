@@ -54,7 +54,10 @@ export function createApp(): Express {
   });
 
   app.get('/api/server-ip', (_req, res) => {
-    res.json({ ip: getLocalServerIp() });
+    const publicServerIp = process.env.PUBLIC_SERVER_IP?.trim();
+    const ip = publicServerIp && publicServerIp.length > 0 ? publicServerIp : getLocalServerIp();
+
+    res.json({ ip });
   });
 
   app.use((_req, res) => {
